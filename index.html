@@ -32,6 +32,11 @@
         .booking-btn { background: linear-gradient(45deg, #ff5a5f, #ff6b7a); 
                        box-shadow: 0 10px 25px rgba(255, 90, 95, 0.4); }
         .btn:active { transform: scale(0.98); }
+        .note {
+            font-size: 13px; opacity: 0.8; margin-top: 20px; padding: 15px;
+            background: rgba(255,255,255,0.05); border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
         @media (max-width: 480px) { .container { padding: 30px 20px; } h1 { font-size: 24px; } }
     </style>
 </head>
@@ -40,21 +45,51 @@
         <h1>⭐ Beverly Hills Hotel</h1>
         <p class="subtitle">QR Scan Complete - Choose Action</p>
         
-        <!-- ✅ YOUR NEW OFFICIAL LINK - View Reviews -->
+        <!-- Direct review link - multiple formats attempted -->
+        <a href="https://search.google.com/local/writereview?placeid=ChIJxU_2vxlbPjoR5G48A_u8Etw" 
+           class="btn review-btn" target="_blank" id="reviewBtn">
+            ✍️ Write Review (Auto-Open)
+        </a>
+        
+        <!-- View Reviews -->
         <a href="https://www.google.com/maps/place/Beverly+Hills+Hotel/@6.8390197,79.8648913,17z/data=!4m11!3m10!1s0x3ae25b19bfd64fc5:0xdf12bcfb039c6de4!5m2!4m1!1i2!8m2!3d6.8390197!4d79.8648913!9m1!1b1!16s%2Fg%2F1tj7cgvg!17m2!4m1!1e3" 
            class="btn view-btn" target="_blank">
             👀 View Reviews
         </a>
         
-        <!-- ✅ SAME LINK - Tap "Write review" button (2 taps to stars) -->
-        <a href="https://www.google.com/maps/place/Beverly+Hills+Hotel/@6.8390197,79.8648913,17z/data=!4m11!3m10!1s0x3ae25b19bfd64fc5:0xdf12bcfb039c6de4!5m2!4m1!1i2!8m2!3d6.8390197!4d79.8648913!9m1!1b1!16s%2Fg%2F1tj7cgvg!17m2!4m1!1e3" 
-           class="btn review-btn" target="_blank">
-            ✍️ Write Review
-        </a>
-        
-        <a href="#" class="btn booking-btn" onclick="alert('Search Beverly Hills Hotel on Booking.com')">
+        <a href="https://www.booking.com/hotel/lk/beverly-hills.html#tab-reviews" class="btn booking-btn" target="_blank">
             🏨 Booking.com Reviews
         </a>
+
+        <div class="note">
+            💡 If the review page doesn't open automatically, tap "Write Review" button, then tap the stars to rate.
+        </div>
     </div>
+
+    <script>
+        // Alternative deep link formats for different devices
+        const placeId = 'ChIJxU_2v1lbPjoR5G48A_u8Etw';
+        const reviewLinks = [
+            `https://search.google.com/local/writereview?placeid=${placeId}`,
+            `https://www.google.com/maps/search/?api=1&query=Beverly+Hills+Hotel&query_place_id=${placeId}`,
+            `comgooglemaps://?q=Beverly+Hills+Hotel&center=6.8390197,79.8648913&zoom=17`
+        ];
+
+        // Try to detect if user is on mobile and prefer app deep link
+        document.getElementById('reviewBtn').addEventListener('click', function(e) {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // Try Google Maps app deep link first
+                e.preventDefault();
+                window.location.href = reviewLinks[2];
+                
+                // Fallback to web after 1 second if app doesn't open
+                setTimeout(() => {
+                    window.open(reviewLinks[0], '_blank');
+                }, 1000);
+            }
+        });
+    </script>
 </body>
 </html>
