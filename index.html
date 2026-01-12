@@ -21,13 +21,15 @@
              -webkit-text-fill-color: transparent; background-clip: text; }
         .subtitle { font-size: 16px; opacity: 0.9; margin-bottom: 30px; }
         .btn {
-            display: block; width: 100%; padding: 18px 20px; margin-bottom: 15px; font-size: 18px;
-            font-weight: 600; border: none; border-radius: 15px; cursor: pointer; text-decoration: none;
-            transition: all 0.3s ease;
+            display: block; width: 100%; padding: 20px; margin-bottom: 15px; 
+            font-size: 18px; font-weight: 600; border: none; border-radius: 15px; 
+            cursor: pointer; text-decoration: none; transition: all 0.3s ease; color: white;
         }
-        .google-btn { background: linear-gradient(45deg, #4285f4, #34a853); color: white; 
-                      box-shadow: 0 10px 25px rgba(66, 133, 244, 0.4); }
-        .booking-btn { background: linear-gradient(45deg, #ff5a5f, #ff6b7a); color: white; 
+        .review-btn { background: linear-gradient(45deg, #ea4335, #fbbc04); 
+                      box-shadow: 0 12px 30px rgba(234, 67, 53, 0.4); }
+        .view-btn { background: linear-gradient(45deg, #4285f4, #34a853); 
+                    box-shadow: 0 10px 25px rgba(66, 133, 244, 0.4); }
+        .booking-btn { background: linear-gradient(45deg, #ff5a5f, #ff6b7a); 
                        box-shadow: 0 10px 25px rgba(255, 90, 95, 0.4); }
         .btn:active { transform: scale(0.98); }
         @media (max-width: 480px) { .container { padding: 30px 20px; } h1 { font-size: 24px; } }
@@ -36,16 +38,21 @@
 <body>
     <div class="container">
         <h1>⭐ Beverly Hills Hotel</h1>
-        <p class="subtitle">Tap to view guest reviews</p>
+        <p class="subtitle">QR Scan Complete - Choose Action</p>
         
-        <!-- ✅ PERFECT FIX: Your ORIGINAL short link + reviews anchor -->
-        <a href="https://maps.app.goo.gl/Likp1pTkPaXFtBMf6?g_st=aw#!reviews" 
-           class="btn google-btn">
-            📱 Google Reviews
+        <!-- ✅ YOUR NEW OFFICIAL LINK - View Reviews -->
+        <a href="https://www.google.com/maps/place/Beverly+Hills+Hotel/@6.8390197,79.8648913,17z/data=!4m11!3m10!1s0x3ae25b19bfd64fc5:0xdf12bcfb039c6de4!5m2!4m1!1i2!8m2!3d6.8390197!4d79.8648913!9m1!1b1!16s%2Fg%2F1tj7cgvg!17m2!4m1!1e3" 
+           class="btn view-btn" target="_blank">
+            👀 View Reviews
         </a>
         
-        <a href="https://www.booking.com/hotel/YOUR-HOTEL-SLUG.en-gb.html#tab-reviews" 
-           class="btn booking-btn" target="_blank">
+        <!-- ✅ SAME LINK - Tap "Write review" button (2 taps to stars) -->
+        <a href="https://www.google.com/maps/place/Beverly+Hills+Hotel/@6.8390197,79.8648913,17z/data=!4m11!3m10!1s0x3ae25b19bfd64fc5:0xdf12bcfb039c6de4!5m2!4m1!1i2!8m2!3d6.8390197!4d79.8648913!9m1!1b1!16s%2Fg%2F1tj7cgvg!17m2!4m1!1e3" 
+           class="btn review-btn" target="_blank">
+            ✍️ Write Review
+        </a>
+        
+        <a href="#" class="btn booking-btn" onclick="alert('Search Beverly Hills Hotel on Booking.com')">
             🏨 Booking.com Reviews
         </a>
     </div>
