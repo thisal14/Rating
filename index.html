@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leave a Review - Beverly Hotels</title>
+    <title>Share Your Experience - Beverly Hotels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-gold: #C9A961;
+            --primary-dark: #1a1a1a;
+            --secondary-navy: #1e3a5f;
+            --accent-bronze: #8B6F47;
+            --bg-cream: #FAF8F5;
+            --text-dark: #2c2c2c;
+            --text-light: #666666;
+            --border-elegant: #E5DFD5;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,95 +26,161 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231e3a5f" width="1200" height="800"/><g fill-opacity="0.1"><circle fill="%23C9A961" cx="200" cy="200" r="150"/><circle fill="%23C9A961" cx="1000" cy="600" r="200"/><circle fill="%23C9A961" cx="600" cy="100" r="100"/></g></svg>');
+            background-size: cover;
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 30px 20px;
         }
 
         .container {
             background: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            max-width: 500px;
+            border-radius: 2px;
+            padding: 60px 50px;
+            max-width: 560px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4), 0 10px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-gold) 0%, var(--accent-bronze) 100%);
         }
 
         .logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            position: relative;
         }
 
-        .logo h1 {
-            color: #667eea;
-            font-size: 28px;
-            margin-bottom: 5px;
+        .logo::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--primary-gold);
+            margin: 20px auto 0;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .brand-tagline {
+            font-size: 12px;
+            color: var(--text-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 400;
         }
 
         .hotel-name {
-            color: #333;
-            font-size: 22px;
+            color: var(--secondary-navy);
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-align: center;
+            letter-spacing: 1px;
         }
 
         .subtitle {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 30px;
+            color: var(--text-light);
+            font-size: 15px;
+            margin-bottom: 40px;
             text-align: center;
+            line-height: 1.6;
+            font-weight: 400;
         }
 
         .button-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 18px;
         }
 
         .review-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 18px 25px;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
+            padding: 20px 30px;
+            border: 2px solid transparent;
+            border-radius: 2px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             color: white;
-            gap: 12px;
+            gap: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .review-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .review-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .google-button {
-            background: #4285f4;
+            background: linear-gradient(135deg, #4285f4 0%, #357ae8 100%);
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
         }
 
         .google-button:hover {
-            background: #357ae8;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(66, 133, 244, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
         }
 
         .booking-button {
-            background: #003580;
+            background: linear-gradient(135deg, #003580 0%, #00295c 100%);
+            box-shadow: 0 4px 15px rgba(0, 53, 128, 0.3);
         }
 
         .booking-button:hover {
-            background: #00295c;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 53, 128, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 53, 128, 0.4);
         }
 
         .icon {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
+            position: relative;
+            z-index: 1;
         }
 
         .modal {
@@ -110,11 +190,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal.active {
@@ -123,17 +210,29 @@
 
         .modal-content {
             background: white;
-            padding: 30px;
-            border-radius: 16px;
-            max-width: 400px;
+            padding: 50px 40px;
+            border-radius: 2px;
+            max-width: 480px;
             width: 100%;
             text-align: center;
-            animation: slideIn 0.3s ease;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes slideIn {
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-gold) 0%, var(--accent-bronze) 100%);
+        }
+
+        @keyframes slideUp {
             from {
-                transform: translateY(-50px);
+                transform: translateY(50px);
                 opacity: 0;
             }
             to {
@@ -143,88 +242,144 @@
         }
 
         .modal-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
+            font-size: 64px;
+            margin-bottom: 25px;
+            line-height: 1;
         }
 
         .modal h3 {
-            color: #333;
-            font-size: 22px;
-            margin-bottom: 15px;
+            color: var(--primary-dark);
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            margin-bottom: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .modal p {
-            color: #666;
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 25px;
+            color: var(--text-light);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .modal p strong {
+            color: var(--text-dark);
+            font-weight: 600;
         }
 
         .modal-buttons {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .modal-button {
-            padding: 14px 25px;
+            padding: 16px 28px;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 2px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .modal-button.primary {
-            background: #003580;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-bronze) 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
         }
 
         .modal-button.primary:hover {
-            background: #00295c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(201, 169, 97, 0.4);
         }
 
         .modal-button.secondary {
-            background: #f0f0f0;
-            color: #333;
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid var(--border-elegant);
         }
 
         .modal-button.secondary:hover {
-            background: #e0e0e0;
+            background: var(--bg-cream);
+            border-color: var(--primary-gold);
         }
 
         .info-box {
-            background: #f0f7ff;
-            border-left: 4px solid #003580;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: #333;
+            background: linear-gradient(135deg, #f8f6f3 0%, #faf8f5 100%);
+            border-left: 3px solid var(--primary-gold);
+            padding: 20px;
+            border-radius: 2px;
+            margin-bottom: 30px;
+            font-size: 13px;
+            color: var(--text-dark);
             text-align: left;
+            line-height: 1.6;
         }
 
-        @media (max-width: 480px) {
+        .info-box strong {
+            color: var(--secondary-navy);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
             .container {
-                padding: 30px 20px;
+                padding: 40px 30px;
             }
 
-            .logo h1 {
-                font-size: 24px;
+            .brand-name {
+                font-size: 28px;
             }
 
             .hotel-name {
-                font-size: 20px;
+                font-size: 24px;
+            }
+
+            .subtitle {
+                font-size: 14px;
             }
 
             .review-button {
-                font-size: 16px;
-                padding: 16px 20px;
+                font-size: 13px;
+                padding: 18px 25px;
             }
 
             .modal-content {
-                padding: 25px 20px;
+                padding: 40px 30px;
+            }
+
+            .modal h3 {
+                font-size: 22px;
+            }
+
+            .modal p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .container {
+                padding: 35px 25px;
+            }
+
+            .brand-name {
+                font-size: 24px;
+                letter-spacing: 1px;
+            }
+
+            .brand-tagline {
+                font-size: 10px;
+                letter-spacing: 2px;
             }
         }
     </style>
@@ -232,11 +387,12 @@
 <body>
     <div class="container">
         <div class="logo">
-            <h1>🏨 Beverly Hotels</h1>
+            <h1 class="brand-name">Beverly Hotels</h1>
+            <p class="brand-tagline">Luxury & Elegance</p>
         </div>
         
         <h2 class="hotel-name" id="hotelName">Loading...</h2>
-        <p class="subtitle">Thank you for staying with us! Please share your experience:</p>
+        <p class="subtitle">We appreciate your stay. Share your experience and help us continue delivering exceptional hospitality.</p>
         
         <div class="button-container">
             <a href="#" id="googleButton" class="review-button google-button">
@@ -251,8 +407,7 @@
             
             <button id="bookingButton" class="review-button booking-button">
                 <svg class="icon" viewBox="0 0 24 24" fill="white">
-                    <path d="M22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.799 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12zm-10.5-7.5c-4.142 0-7.5 3.358-7.5 7.5s3.358 7.5 7.5 7.5 7.5-3.358 7.5-7.5-3.358-7.5-7.5-7.5z"/>
-                    <path d="M12 8c.414 0 .75.336.75.75v3.5a.75.75 0 01-1.5 0v-3.5c0-.414.336-.75.75-.75zm0 7a1 1 0 100 2 1 1 0 000-2z"/>
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                 </svg>
                 Booking.com Review
             </button>
@@ -262,12 +417,13 @@
     <!-- Modal for Booking.com Question -->
     <div id="bookingModal" class="modal">
         <div class="modal-content">
-            <div class="modal-icon">📧</div>
-            <h3>Did you book through Booking.com?</h3>
-            <p>Only guests who booked through Booking.com can leave reviews on their platform.</p>
+            <div class="modal-icon">🏨</div>
+            <h3>Booking Method</h3>
+            <p>To leave a review on Booking.com, you must have made your reservation through their platform.</p>
+            <p><strong>Did you book through Booking.com?</strong></p>
             <div class="modal-buttons">
-                <button class="modal-button primary" id="bookedYes">Yes, I booked through Booking.com</button>
-                <button class="modal-button secondary" id="bookedNo">No, I booked directly</button>
+                <button class="modal-button primary" id="bookedYes">Yes, I Booked via Booking.com</button>
+                <button class="modal-button secondary" id="bookedNo">No, I Booked Directly</button>
             </div>
         </div>
     </div>
@@ -275,10 +431,14 @@
     <!-- Modal for Booking.com Users -->
     <div id="bookedModal" class="modal">
         <div class="modal-content">
-            <div class="modal-icon">✅</div>
-            <h3>Check Your Email!</h3>
-            <p>Booking.com sends a review link to your email about 48 hours after checkout. Look for an email from Booking.com with the subject "How was your stay?"</p>
-            <p style="margin-bottom: 15px;"><strong>Can't find it?</strong> Check your spam folder or contact Booking.com support.</p>
+            <div class="modal-icon">📧</div>
+            <h3>Check Your Email</h3>
+            <div class="info-box">
+                <strong>Review Link Sent to Your Inbox</strong>
+                Booking.com automatically sends a review invitation to your email approximately 48 hours after checkout.
+            </div>
+            <p>Look for an email from Booking.com with the subject line <strong>"How was your stay?"</strong></p>
+            <p style="margin-bottom: 15px;">If you cannot locate it, please check your spam folder or contact Booking.com customer support.</p>
             <div class="modal-buttons">
                 <button class="modal-button primary" id="openBookingPage">View Our Booking.com Page</button>
                 <button class="modal-button secondary" id="closeBookedModal">Close</button>
@@ -289,10 +449,14 @@
     <!-- Modal for Direct Bookers -->
     <div id="notBookedModal" class="modal">
         <div class="modal-content">
-            <div class="modal-icon">ℹ️</div>
-            <h3>You Haven't Booked Through Booking.com</h3>
-            <p>Unfortunately, only guests who made a reservation through Booking.com can leave reviews there.</p>
-            <p><strong>But you can still help us!</strong> Please leave a Google review instead - it means just as much to us!</p>
+            <div class="modal-icon">⭐</div>
+            <h3>Alternative Review Option</h3>
+            <div class="info-box">
+                <strong>Booking.com Reviews</strong>
+                Only guests with verified Booking.com reservations can leave reviews on their platform.
+            </div>
+            <p>Since you booked directly with us, we invite you to share your experience on Google Reviews instead.</p>
+            <p><strong>Your feedback is invaluable</strong> and helps us maintain our commitment to excellence.</p>
             <div class="modal-buttons">
                 <button class="modal-button primary" id="goToGoogle">Leave Google Review</button>
                 <button class="modal-button secondary" id="closeNotBookedModal">Close</button>
