@@ -46,6 +46,7 @@
             font-size: 22px;
             font-weight: 600;
             margin-bottom: 10px;
+            text-align: center;
         }
 
         .subtitle {
@@ -102,14 +103,106 @@
             height: 24px;
         }
 
-        .error-message {
-            background: #fee;
-            border: 1px solid #fcc;
-            color: #c33;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .modal h3 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-button {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-button.primary {
+            background: #003580;
+            color: white;
+        }
+
+        .modal-button.primary:hover {
+            background: #00295c;
+        }
+
+        .modal-button.secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-button.secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .info-box {
+            background: #f0f7ff;
+            border-left: 4px solid #003580;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
-            text-align: center;
+            font-size: 14px;
+            color: #333;
+            text-align: left;
         }
 
         @media (max-width: 480px) {
@@ -129,6 +222,10 @@
                 font-size: 16px;
                 padding: 16px 20px;
             }
+
+            .modal-content {
+                padding: 25px 20px;
+            }
         }
     </style>
 </head>
@@ -141,8 +238,6 @@
         <h2 class="hotel-name" id="hotelName">Loading...</h2>
         <p class="subtitle">Thank you for staying with us! Please share your experience:</p>
         
-        <div id="errorContainer"></div>
-        
         <div class="button-container">
             <a href="#" id="googleButton" class="review-button google-button">
                 <svg class="icon" viewBox="0 0 24 24" fill="white">
@@ -154,13 +249,54 @@
                 Google Review
             </a>
             
-            <a href="#" id="bookingButton" class="review-button booking-button">
+            <button id="bookingButton" class="review-button booking-button">
                 <svg class="icon" viewBox="0 0 24 24" fill="white">
                     <path d="M22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.799 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12zm-10.5-7.5c-4.142 0-7.5 3.358-7.5 7.5s3.358 7.5 7.5 7.5 7.5-3.358 7.5-7.5-3.358-7.5-7.5-7.5z"/>
                     <path d="M12 8c.414 0 .75.336.75.75v3.5a.75.75 0 01-1.5 0v-3.5c0-.414.336-.75.75-.75zm0 7a1 1 0 100 2 1 1 0 000-2z"/>
                 </svg>
                 Booking.com Review
-            </a>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal for Booking.com Question -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">📧</div>
+            <h3>Did you book through Booking.com?</h3>
+            <p>Only guests who booked through Booking.com can leave reviews on their platform.</p>
+            <div class="modal-buttons">
+                <button class="modal-button primary" id="bookedYes">Yes, I booked through Booking.com</button>
+                <button class="modal-button secondary" id="bookedNo">No, I booked directly</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Booking.com Users -->
+    <div id="bookedModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">✅</div>
+            <h3>Check Your Email!</h3>
+            <p>Booking.com sends a review link to your email about 48 hours after checkout. Look for an email from Booking.com with the subject "How was your stay?"</p>
+            <p style="margin-bottom: 15px;"><strong>Can't find it?</strong> Check your spam folder or contact Booking.com support.</p>
+            <div class="modal-buttons">
+                <button class="modal-button primary" id="openBookingPage">View Our Booking.com Page</button>
+                <button class="modal-button secondary" id="closeBookedModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Direct Bookers -->
+    <div id="notBookedModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">ℹ️</div>
+            <h3>You Haven't Booked Through Booking.com</h3>
+            <p>Unfortunately, only guests who made a reservation through Booking.com can leave reviews there.</p>
+            <p><strong>But you can still help us!</strong> Please leave a Google review instead - it means just as much to us!</p>
+            <div class="modal-buttons">
+                <button class="modal-button primary" id="goToGoogle">Leave Google Review</button>
+                <button class="modal-button secondary" id="closeNotBookedModal">Close</button>
+            </div>
         </div>
     </div>
 
@@ -170,17 +306,17 @@
             'beverly-hills': {
                 name: 'Beverly Hills Hotel',
                 googlePlaceId: 'ChIJxU_Wvxlb4joR5G2cA_u8Et8',
-                bookingUrl: 'https://www.booking.com/reviewlist.html?pagename=beverly-hills-hotel&cc1=lk' // Replace with actual Booking.com URL
+                bookingUrl: 'https://www.booking.com/hotel/lk/beverly-hills.html'
             },
             'beverly-suites': {
                 name: 'Beverly Suites',
                 googlePlaceId: 'ChIJ_Vl3Ualb4joR8P0FCTX9Me4',
-                bookingUrl: 'https://www.booking.com/reviewlist.html?pagename=beverly-suites&cc1=lk' // Replace with actual Booking.com URL
+                bookingUrl: 'https://www.booking.com/hotel/lk/beverly-suites.html'
             },
             'beverly-beach': {
                 name: 'Beverly Beach Hotel',
                 googlePlaceId: 'ChIJcxwEArXp4joRWlurAkyrlyc',
-                bookingUrl: 'https://www.booking.com/reviewlist.html?pagename=beverly-beach-hotel&cc1=lk' // Replace with actual Booking.com URL
+                bookingUrl: 'https://www.booking.com/hotel/lk/beverly-beach.html'
             }
         };
 
@@ -201,10 +337,57 @@
         googleButton.href = `https://search.google.com/local/writereview?placeid=${hotel.googlePlaceId}`;
         googleButton.target = '_blank';
         
-        // Set up Booking.com Review button
-        const bookingButton = document.getElementById('bookingButton');
-        bookingButton.href = hotel.bookingUrl;
-        bookingButton.target = '_blank';
+        // Modal elements
+        const bookingModal = document.getElementById('bookingModal');
+        const bookedModal = document.getElementById('bookedModal');
+        const notBookedModal = document.getElementById('notBookedModal');
+        
+        // Booking.com button click - show question modal
+        document.getElementById('bookingButton').addEventListener('click', () => {
+            bookingModal.classList.add('active');
+        });
+        
+        // User says YES they booked through Booking.com
+        document.getElementById('bookedYes').addEventListener('click', () => {
+            bookingModal.classList.remove('active');
+            bookedModal.classList.add('active');
+        });
+        
+        // User says NO they didn't book through Booking.com
+        document.getElementById('bookedNo').addEventListener('click', () => {
+            bookingModal.classList.remove('active');
+            notBookedModal.classList.add('active');
+        });
+        
+        // Open Booking.com page
+        document.getElementById('openBookingPage').addEventListener('click', () => {
+            window.open(hotel.bookingUrl, '_blank');
+            bookedModal.classList.remove('active');
+        });
+        
+        // Go to Google review from "not booked" modal
+        document.getElementById('goToGoogle').addEventListener('click', () => {
+            window.open(`https://search.google.com/local/writereview?placeid=${hotel.googlePlaceId}`, '_blank');
+            notBookedModal.classList.remove('active');
+        });
+        
+        // Close modals
+        document.getElementById('closeBookedModal').addEventListener('click', () => {
+            bookedModal.classList.remove('active');
+        });
+        
+        document.getElementById('closeNotBookedModal').addEventListener('click', () => {
+            notBookedModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        [bookingModal, bookedModal, notBookedModal].forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
